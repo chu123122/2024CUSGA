@@ -13,10 +13,20 @@ public class LoadCheck : MonoBehaviour
     {
         loadCheck();
         Debug.Log("isLoad:" + isLoad);
+        if(hasLoad){
+            ;//执行着陆后的有关行为
+            hasLoad=false;
+        }
     }
 
     void loadCheck()
     {
-       
+       if(rb.velocity.y<0){
+           isLoad=true;
+       }
+       if(isGroundCheck.isGround&&isLoad){
+           hasLoad=true;
+           isLoad=false;
+       }
     }
 }
