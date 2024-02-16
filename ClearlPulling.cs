@@ -9,7 +9,7 @@ public class ClearPulling: MonoBehaviour
     public Rigidbody2D rb;
     public float moveSpeed;
 
-    public float radius = 5f;//¾àÀëÅÐ¶¨
+    public float radius = 5f;//ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
     private CircleCollider2D circleCollider;
     public CircleCollider2D playerCollider;
     bool touchWall;
@@ -35,7 +35,7 @@ public class ClearPulling: MonoBehaviour
         }else if (touchIronWall && Input.GetMouseButtonDown(0))
         {
             ProcessMouseClick();
-             //Ïà·´µÄÁ¦
+             //ï¿½à·´ï¿½ï¿½ï¿½ï¿½
         }
 
         Debug.Log("touchWall:" + touchWall);
@@ -77,12 +77,12 @@ public class ClearPulling: MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D other)
     {
-        // ¼ì²éÅö×²Æ÷½Ó´¥ÆÕÍ¨Ç½
+        // ï¿½ï¿½ï¿½ï¿½ï¿½×²ï¿½ï¿½ï¿½Ó´ï¿½ï¿½ï¿½Í¨Ç½
         if (other.CompareTag("Wall"))
         {
             touchWall = true;
         }
-        // ¼ì²éÅö×²Æ÷½Ó´¥ÌúÇ½
+        // ï¿½ï¿½ï¿½ï¿½ï¿½×²ï¿½ï¿½ï¿½Ó´ï¿½ï¿½ï¿½Ç½
         if (other.CompareTag("IronWall"))
         {
             touchWall = true;
@@ -90,12 +90,12 @@ public class ClearPulling: MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D other)
     {
-        // ¼ì²éÅö×²Æ÷Àë¿ªÆÕÍ¨Ç½
+        // ï¿½ï¿½ï¿½ï¿½ï¿½×²ï¿½ï¿½ï¿½ë¿ªï¿½ï¿½Í¨Ç½
         if (other.CompareTag("Wall"))
         {
             touchWall = false;
         }
-        // ¼ì²éÅö×²Æ÷Àë¿ªÌúÇ½
+        // ï¿½ï¿½ï¿½ï¿½ï¿½×²ï¿½ï¿½ï¿½ë¿ªï¿½ï¿½Ç½
         if (other.CompareTag("IronWall"))
         {
             touchWall = false;
@@ -104,10 +104,10 @@ public class ClearPulling: MonoBehaviour
 
     void MoveToWall(Vector3 targetPosition)
     {
-        // ¼ÆËãÒÆ¶¯·½Ïò
+        
         Vector2 moveDirection = (targetPosition - Player.position).normalized;
 
-        // ÉèÖÃËÙ¶È»òÊ©¼ÓÁ¦£¬Ê¹Íæ¼Ò¼ÓËÙÒÆ¶¯
+        
         rb.AddForce (moveDirection * moveSpeed, ForceMode2D.Impulse);
 
        
