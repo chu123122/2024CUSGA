@@ -28,16 +28,11 @@ public class ClearPulling: MonoBehaviour
 
         Mouse();
 
-        if (touchWall&&Input.GetMouseButtonDown(0))
+        if ((touchWall||touchIronWall)&&Input.GetMouseButtonDown(0))
         {
             ProcessMouseClick();
 
-        }else if (touchIronWall && Input.GetMouseButtonDown(0))
-        {
-            ProcessMouseClick();
-             //�෴����
         }
-
         Debug.Log("touchWall:" + touchWall);
     }
 
@@ -106,10 +101,53 @@ public class ClearPulling: MonoBehaviour
     {
         
         Vector2 moveDirection = (targetPosition - Player.position).normalized;
-
+        float xProjection = Vector2.Dot(moveDirection, Vector2.right);
+        float yProjection = Vector2.Dot(moveDirection, Vector2.up);
+        float angle = Mathf.Atan2(yProjection, xProjection) * Mathf.Rad2Deg;
+        rb.gravityScale = 0;
+        rb.velocity = Vector2.zero;
+        if (angle >= -22.5f && angle <= 22.5f)
+        {
+            rb.AddForce(Vector2.right * dashForce, ForceMode2D.Impulse);
+            print("右");
+        }
+        else if (angle >= -67.5f && angle <= -22.5f)
+        {
+            rb.AddForce(Vector2.right * dashForce + Vector2.down * dashForceH, ForceMode2D.Impulse);
+            print("右下");
+        }
+        else if (angle >= -112.5f && angle <= -67.5f)
+        {
+            rb.AddForce(Vector2.down * dashForceH, ForceMode2D.Impulse);
+            print("下");
+        }
+        else if (angle >= -157.5f && angle <= -112.5f)
+        {
+            rb.AddForce(Vector2.left * dashForce + Vector2.down * dashForceH, ForceMode2D.Impulse);
+            print("左下");
+        }
+        else if ((angle > 157.5f && angle <= 180) || (angle >= -180 && angle <= -157.5f))
+        {
+            rb.AddForce(Vector2.left * dashForce, ForceMode2D.Impulse);
+            print("左");
+        }
+        else if (angle >= 112.5f && angle <= 157.5f)
+        {
+            rb.AddForce(Vector2.left * dashForce + Vector2.up * dashForceH, ForceMode2D.Impulse);
+                    print("左上");
+        }
+        else if (angle >= 67.5f && angle <= 112.5f)
+        {
+            rb.AddForce(Vector2.up * dashForceH, ForceMode2D.Impulse);
+            print("上");
+        }
+        else if (angle >= 22.5f && angle <= 67.5f)
+        {
+            rb.AddForce(Vector2.right * dashForce + Vector2.up * dashForceH, ForceMode2D.Impulse);
+                    print("右上");
+        }
         
-        rb.AddForce (moveDirection * moveSpeed, ForceMode2D.Impulse);
-
+        rb.gravityScale = orginGravityScale;
        
     }
 }
