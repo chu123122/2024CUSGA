@@ -22,7 +22,6 @@ public class RaycastHit : MonoBehaviour
         mousePos.z = Camera.main.transform.position.z;
         Vector3 targetPosition = Camera.main.ScreenToWorldPoint(mousePos);
         Vector2 direction = (targetPosition - Player.PlayerTf.position).normalized;
-        RaycastHit2D hit = Physics2D.Raycast(Player.PlayerTf.position, direction, ~(1 << Player.PlayerCo.gameObject.layer));
         #endregion
 
         Debug.DrawLine(Player.PlayerTf.position, direction * 1000f, Color.red, 0.001f);
@@ -45,14 +44,14 @@ public class RaycastHit : MonoBehaviour
             hitWall = false;
 
 
-        if (hit.collider != null && hit.collider.CompareTag("DashCircle"))//冲刺球
+        if (hit.collider != null && hit.collider == GrabCheck.lastColliderDashCircle)//冲刺球
             hitDashCircle = true;
         else
             hitDashCircle = false;
 
-        if (hit.collider != null)
+        /*if (hit.collider != null)
             Debug.Log("RaycastHit" + hit.collider.name);
         else
-            print("null");
+            print("null");*/
     }
 }
