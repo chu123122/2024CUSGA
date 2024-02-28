@@ -15,15 +15,15 @@ public class PlayerState_DashCircle_0 : PlayerState
     #endregion
     public static float bulletTimeCounter = 0.0f;
     [HideInInspector] public static bool isBulletTimeActive = false;
-    
     #region 冲刺参数
     [Tooltip("冲刺水平力")]
-    public float dashForce;//
+    public  float dashForce;
     [Tooltip("冲刺垂直力")]
-    public float dashForceH;//
+    public  float dashForceH;
     [Tooltip("子弹时间过多久后可以冲刺")]
     public float dashTimeCheck = 0.45f;
     #endregion
+
     public override void Enter()
     {
         Debug.Log("Enter Dash_0");
@@ -31,7 +31,9 @@ public class PlayerState_DashCircle_0 : PlayerState
         PlayerCollisionCheck.PlayerTouchCircle = false;
         bulletTimeCounter = bulletTime;
         isBulletTimeActive = true;
+        Player.PlayerSr.color = Color.yellow;//切换动画
         #endregion
+
     }
     public override void Exit()
     {
@@ -44,10 +46,11 @@ public class PlayerState_DashCircle_0 : PlayerState
         side = 0;
         bulletTimeScale = 0.1f;
         #endregion
+       // PlayerStateMachine.state = 2;
     }
     public override void LogicUpdate()
     {
-        Debug.Log("bulletTimeCounter:" + bulletTimeCounter);
+        //Debug.Log("bulletTimeCounter:" + bulletTimeCounter);
        
         if (isBulletTimeActive && bulletTimeCounter > 0)
         {
@@ -70,15 +73,16 @@ public class PlayerState_DashCircle_0 : PlayerState
             isBulletTimeActive = false;
         }
     }
+
     #region 冲刺数据及函数
     public static int side = 0;//冲刺方向
-    public static int dashMount = 1;//冲刺次数
+    public static int dashMount = 0;//冲刺次数
 
     public void DashCheck()
     {
         if (dashMount > 0 && bulletTimeCounter <= (bulletTime - dashTimeCheck))
         {
-            Debug.Log("DashCheck");
+            //Debug.Log("DashCheck");
             if (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.W))
             {
                 side = 1;//右
