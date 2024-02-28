@@ -15,11 +15,11 @@ public class Jump : MonoBehaviour
     #endregion
 
     private bool isJumping;
-    private float jumpTimeCounter;
+    private float jumpTimeController;
 
     private void Start()
     {
-        jumpTimeCounter = jumpTime;
+        jumpTimeController = jumpTime;
     }
 
     private void Update()
@@ -41,10 +41,10 @@ public class Jump : MonoBehaviour
     }
     void HoldJump()
     {
-        if (Input.GetKey(KeyCode.Space) && isJumping && jumpTimeCounter > 0)
+        if (Input.GetKey(KeyCode.Space) && isJumping && jumpTimeController > 0)
         {
             Player.PlayerRb.AddForce(Vector2.up * jumpHoldHigh, ForceMode2D.Impulse);
-            jumpTimeCounter -= Time.fixedDeltaTime;
+            jumpTimeController -= Time.fixedDeltaTime;
         }
     }
 
@@ -53,7 +53,7 @@ public class Jump : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Space))
         {
             isJumping = false;
-            jumpTimeCounter = jumpTime;
+            jumpTimeController = jumpTime;
         }
     }
 }
