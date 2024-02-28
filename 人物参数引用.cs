@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public static GameObject PlayerGo;
+    public static SpriteRenderer PlayerSr;
     public static Rigidbody2D PlayerRb;
     public static Transform PlayerTf;
     public static CircleCollider2D PlayerCo;
@@ -14,6 +15,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         PlayerGo = gameObject;
+        PlayerSr = GetComponent<SpriteRenderer>();
         PlayerRb = GetComponent<Rigidbody2D>();
         PlayerTf = transform;
         PlayerCo = GetComponent<CircleCollider2D>();
