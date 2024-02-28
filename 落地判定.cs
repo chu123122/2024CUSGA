@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class 落地判定 : MonoBehaviour
+public class LoadCheck : MonoBehaviour
 {
     Rigidbody2D rb;
     private bool isLoad;//正在落地
@@ -19,13 +19,13 @@ public class 落地判定 : MonoBehaviour
         if (hasLoad)
         {
             Grab.grabMount = 1;//抓取次数重置
-            Dash.dashMount = 1;//冲刺次数重置
+            PlayerState_DashCircle_0.dashMount = 1;//冲刺次数重置
             Grab.oneTouchWall = false;
             hasLoad = false;
         }
         if (IsGroundCheck.isGround)
         {
-            Dash.dashMount = 1;
+            PlayerState_DashCircle_0.dashMount = 1;
         }
     }
 
