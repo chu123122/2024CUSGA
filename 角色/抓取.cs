@@ -14,10 +14,19 @@ public class Grab : MonoBehaviour
     public static bool oneTouchDashCircle = false;
     public static Vector3 direction;
     private bool hadGrab = false;
+   
+    CircleAutoGrabCheck circleAutoGrabCheck;// = GameObject.Find("RaycastHitCheck").GetComponent<CircleAutoGrabCheck>();
+
+    public GameObject Layer1;
+    public GameObject Layer2;
+    public GameObject Layer3;
     private void Update()
     {
+        circleAutoGrabCheck = GameObject.Find("RaycastHitCheck").GetComponent<CircleAutoGrabCheck>();
+
+        //Debug.Log("autoState:" + circleAutoGrabCheck.autoState());
         grabCheck();
-        GrabEffect();
+        GrabEffect();  
         GrabAddforce();
     }
     public void grabCheck()
@@ -27,47 +36,57 @@ public class Grab : MonoBehaviour
         direction = (targetPosition - Player.PlayerTf.position).normalized;
     }
 
+    
     public void GrabAddforce()
     {
-
+       
+        
         if (hadGrab)
         {
             GetComponent<Move>().enabled = true;
             hadGrab = false;
         }
-        if (Input.GetMouseButtonDown(0) && !PlayerCollisionCheck.PlayerTouchWall && GrabCheck.touchWall && RaycastHit.hitWall)
+        #region 抓取墙壁
+        if (Input.GetMouseButtonDown(0)&&!PlayerCollisionCheck.PlayerTouchWall && GrabCheck.touchWall && RaycastHit.hitWall&&grabMount > 0)
         {
+
+            print("GrabWall");
             Player.PlayerRb.gravityScale = 0;
             Player.PlayerRb.velocity = Vector2.zero;
             GetComponent<Move>().enabled = false;
             Player.PlayerRb.AddForce(direction * grabForce * 100, ForceMode2D.Force);
-            grabMount = 0;
-
-            hadGrab = true;
+            grabMount = 0;          
         }
         else if (PlayerCollisionCheck.PlayerTouchWall && !oneTouchWall)
         {
+            print("Return");
             GetComponent<Move>().enabled = true;
             Player.PlayerRb.velocity = Vector2.zero;
             oneTouchWall = true;
+            hadGrab = true;
         }
 
-        if(Input.GetMouseButtonDown(0) && !PlayerCollisionCheck.PlayerTouchCircle && GrabCheck.touchDashCircle && RaycastHit.hitDashCircle)
+        #endregion
+
+        #region 抓取冲刺球
+        if (Input.GetMouseButtonDown(0) && !PlayerCollisionCheck.PlayerTouchCircle && GrabCheck.touchDashCircle&& CircleAutoGrabCheck.isAutoTouch)
         {
             Player.PlayerRb.gravityScale = 0;
             Player.PlayerRb.velocity = Vector2.zero;
             GetComponent<Move>().enabled = false;
+            direction = (CircleAutoGrabCheck.CirclePosition-Player.PlayerTf.position).normalized;
             Player.PlayerRb.AddForce(direction * grabForce * 100, ForceMode2D.Force);
             grabMount = 0;
 
             hadGrab = true;
         }
-        else if (PlayerCollisionCheck.PlayerTouchCircle && !oneTouchDashCircle)
+        else if (PlayerCollisionCheck.PlayerTouchCircle )
         {
+            
             GetComponent<Move>().enabled = true;
             Player.PlayerRb.velocity = Vector2.zero;
-            oneTouchDashCircle = true;
         }
+        #endregion
     }
     public void GrabEffect()
     {

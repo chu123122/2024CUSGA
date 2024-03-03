@@ -7,11 +7,11 @@ public class PlayerState_NoneCIrcle : PlayerState
 {
     public override void Enter()
     {
-        Debug.Log("Enter NoneCIrcle");
+        //Debug.Log("Enter NoneCIrcle");
         Player.PlayerSr.color = Color.white;//ÇÐ»»¶¯»­
     }
     public override void Exit()
     {
-        Debug.Log("Exit NoneCIrcle");
+        //Debug.Log("Exit NoneCIrcle");
     }
 }

@@ -26,18 +26,21 @@ public class PlayerState_DashCircle_0 : PlayerState
 
     public override void Enter()
     {
-        Debug.Log("Enter Dash_0");
+        //Debug.Log("Enter Dash_0");
         #region 进入状态准备
+        
         PlayerCollisionCheck.PlayerTouchCircle = false;
         bulletTimeCounter = bulletTime;
         isBulletTimeActive = true;
+
         Player.PlayerSr.color = Color.yellow;//切换动画
+
         #endregion
 
     }
     public override void Exit()
     {
-        Debug.Log("Exit Dash_0");
+        //Debug.Log("Exit Dash_0");
         #region 退出状态重置
         Player.PlayerRb.gravityScale = Player.orginGravityScale;
         bulletTimeCounter = 0.0f;

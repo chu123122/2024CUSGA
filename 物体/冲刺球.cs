@@ -29,9 +29,9 @@ public class Circle: MonoBehaviour
         #region 存储球体名字和反激活
         if (collision.CompareTag("Player"))
         {
-            PlayerState_DashCircle_0.dashMount += 1;
+            //PlayerState_DashCircle_0.dashMount += 1;
             CircleName.Add(circle.gameObject.name);// 存储球体名字到列表中
-            Debug.Log("name:" + circle.gameObject.name);
+            //Debug.Log("name:" + circle.gameObject.name);
             gameObject.SetActive(false);
             
         }

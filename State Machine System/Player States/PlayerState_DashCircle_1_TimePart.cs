@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerState_DashCircle_1_TimePart : MonoBehaviour
 {
 
-    public static PlayerState_DashCircle_1_TimePart instance; // 单例
+    public static PlayerState_DashCircle_1_TimePart instance; 
 
     private void Awake()
     {
@@ -21,9 +21,17 @@ public class PlayerState_DashCircle_1_TimePart : MonoBehaviour
         StartCoroutine(EnableCollisionAfterDelay(cloneCollider));
     }
 
+    public void StartEnableCollisionAfterDelay()
+    {
+        StartCoroutine(EnableCollisionAfterDelay());
+    }
     private IEnumerator EnableCollisionAfterDelay(Collider2D cloneCollider)
     {
         yield return new WaitForSeconds(1.0f); // 等待一段时间
         Physics2D.IgnoreCollision(cloneCollider, Player.PlayerCo.GetComponent<Collider2D>(), false); // 恢复碰撞
+    }
+    private IEnumerator EnableCollisionAfterDelay()
+    {
+        yield return new WaitForSeconds(1.0f); // 等待一段时间
     }
 }

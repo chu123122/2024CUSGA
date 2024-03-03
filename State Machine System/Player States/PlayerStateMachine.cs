@@ -7,7 +7,7 @@ public class PlayerStateMachine : StateMachine
     public  PlayerState_DashCircle_0 dashState_0;
     public  PlayerState_DashCircle_1 dashState_1;
     public PlayerState_NoneCIrcle noneState;
-    private float state = 0; 
+    public static float state = 0; 
     private void Awake()
     {
         //≥ı ºªØ
@@ -26,7 +26,7 @@ public class PlayerStateMachine : StateMachine
             SwitchState(dashState_0);
             state = 1;
         }
-        else if (state!=2 && Player.PlayerSr.color == Color.yellow && !PlayerState_DashCircle_0.isBulletTimeActive)
+        else if (state!=2  && !PlayerState_DashCircle_0.isBulletTimeActive && Player.PlayerSr.color == Color.yellow)
         {
             SwitchState(dashState_1);
             state = 2;

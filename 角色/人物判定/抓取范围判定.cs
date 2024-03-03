@@ -50,7 +50,7 @@ public class GrabCheck : MonoBehaviour
         if (other.CompareTag("Wall"))
         {
             touchWall = false;
-            //lastColliderWall = null;
+            lastColliderWall = null;
         }
         if (other.CompareTag("IronWall"))
         {
@@ -63,6 +63,10 @@ public class GrabCheck : MonoBehaviour
         {
             touchDashCircle = false;
             lastColliderDashCircle = other;
+
+            GameObject DashCircle = other.gameObject;
+            SpriteRenderer spriteRenderer = DashCircle.GetComponent<SpriteRenderer>();
+            spriteRenderer.color = Color.yellow;
         }
         #endregion
     }
