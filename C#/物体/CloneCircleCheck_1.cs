@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CloneCircleCheck : MonoBehaviour
+public class CloneCircleCheck_1 : MonoBehaviour
 {
     Collider2D Circle;
     private void Start()

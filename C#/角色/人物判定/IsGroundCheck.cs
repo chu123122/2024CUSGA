@@ -8,14 +8,14 @@ public class IsGroundCheck : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Ground"))
+        if (/*(other.gameObject.CompareTag("Wall")&& other.transform.parent.name=="Ground") ||*/ other.gameObject.CompareTag("Ground"))
         {
             isGround = true;
         }
     }
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Ground"))
+        if (/*(other.gameObject.CompareTag("Wall") && other.transform.parent.name == "Ground")||*/ other.gameObject.CompareTag("Ground"))
         {
             isGround = false;
         }

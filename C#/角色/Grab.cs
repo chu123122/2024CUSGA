@@ -16,10 +16,6 @@ public class Grab : MonoBehaviour
     private bool hadGrab = false;
    
     CircleAutoGrabCheck circleAutoGrabCheck;// = GameObject.Find("RaycastHitCheck").GetComponent<CircleAutoGrabCheck>();
-
-    public GameObject Layer1;
-    public GameObject Layer2;
-    public GameObject Layer3;
     private void Update()
     {
         circleAutoGrabCheck = GameObject.Find("RaycastHitCheck").GetComponent<CircleAutoGrabCheck>();
@@ -53,12 +49,12 @@ public class Grab : MonoBehaviour
             print("GrabWall");
             Player.PlayerRb.gravityScale = 0;
             Player.PlayerRb.velocity = Vector2.zero;
-            GetComponent<Move>().enabled = false;
+            GetComponent<Move>().enabled = false;     
             Player.PlayerRb.AddForce(direction * grabForce * 100, ForceMode2D.Force);
             grabMount = 0;          
         }
         else if (PlayerCollisionCheck.PlayerTouchWall && !oneTouchWall)
-        {
+        {       
             print("Return");
             GetComponent<Move>().enabled = true;
             Player.PlayerRb.velocity = Vector2.zero;
@@ -82,7 +78,7 @@ public class Grab : MonoBehaviour
         }
         else if (PlayerCollisionCheck.PlayerTouchCircle )
         {
-            
+            print("233");
             GetComponent<Move>().enabled = true;
             Player.PlayerRb.velocity = Vector2.zero;
         }
@@ -90,8 +86,9 @@ public class Grab : MonoBehaviour
     }
     public void GrabEffect()
     {
-        if (grabMount == 0)
+        if (grabMount == 0&& !PlayerState_DashCircle_0.isBulletTimeActive&&!PlayerCollisionCheck.touchWallZero)
         {
+            print("4");
             Player.PlayerRb.gravityScale = Player.orginGravityScale;
         }
     }

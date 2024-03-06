@@ -130,7 +130,7 @@ public class CloneDashCircle : MonoBehaviour
             {
                 print("Player!");
                 isTrigger = true;
-                #region
+                #region  碰撞禁止与启用
                 DateTime DashTime = DateTime.Now;
                 TimeSpan timeDifference = DashTime - PlayerState_DashCircle_1.ShotTime; 
                 if (timeDifference.TotalSeconds < 0.5f)
@@ -164,6 +164,7 @@ public class CloneDashCircle : MonoBehaviour
         }
         else if (collision.CompareTag("PlayerCheck_1")&&Player.PlayerSr.color==Color.white)
         {
+            #region 碰撞禁止与启用
             isTrigger_1 = true;
             DateTime DashTime = DateTime.Now;
             TimeSpan timeDifference = DashTime - PlayerState_DashCircle_1.ShotTime;
@@ -177,6 +178,7 @@ public class CloneDashCircle : MonoBehaviour
                 gameObject.SetActive(false);
                 PlayerCollisionCheck.PlayerTouchCircle = true;
             }
+            #endregion
         }
     }
 }

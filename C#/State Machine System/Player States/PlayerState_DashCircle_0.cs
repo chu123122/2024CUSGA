@@ -7,38 +7,43 @@ using UnityEngine;
 
 public class PlayerState_DashCircle_0 : PlayerState
 {
-    #region å­å¼¹æ—¶é—´å‚æ•°
-    [Tooltip("å­å¼¹æ—¶é—´çš„æŒç»­æ—¶é—´")]
+    #region ×Óµ¯Ê±¼ä²ÎÊý
+    [Tooltip("×Óµ¯Ê±¼äµÄ³ÖÐøÊ±¼ä")]
     public float bulletTime = 0.5f;
-    [Tooltip("å­å¼¹æ—¶é—´çš„æ—¶é—´ç¼©æ”¾æ¯”ä¾‹")]
+    [Tooltip("×Óµ¯Ê±¼äµÄÊ±¼äËõ·Å±ÈÀý")]
     public float bulletTimeScale=0.1f;
     #endregion
     public static float bulletTimeCounter = 0.0f;
     [HideInInspector] public static bool isBulletTimeActive = false;
-    #region å†²åˆºå‚æ•°
-    [Tooltip("å†²åˆºæ°´å¹³åŠ›")]
+    #region ³å´Ì²ÎÊý
+    [Tooltip("³å´ÌË®Æ½Á¦")]
     public  float dashForce;
-    [Tooltip("å†²åˆºåž‚ç›´åŠ›")]
+    [Tooltip("³å´Ì´¹Ö±Á¦")]
     public  float dashForceH;
-    [Tooltip("å­å¼¹æ—¶é—´è¿‡å¤šä¹…åŽå¯ä»¥å†²åˆº")]
+    [Tooltip("×Óµ¯Ê±¼ä¹ý¶à¾Ãºó¿ÉÒÔ³å´Ì")]
     public float dashTimeCheck = 0.45f;
     #endregion
 
     public override void Enter()
     {
         Debug.Log("Enter Dash_0");
-        #region ï¿½ï¿½ï¿½ï¿½×´Ì¬×¼ï¿½ï¿½
+        #region ½øÈë×´Ì¬×¼±¸
+        
         PlayerCollisionCheck.PlayerTouchCircle = false;
         bulletTimeCounter = bulletTime;
         isBulletTimeActive = true;
-        Player.PlayerSr.color = Color.yellow;//ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½
+
+        Player.PlayerSr.color = Color.yellow;//ÇÐ»»¶¯»­
+        Player.PlayerRb.velocity = Vector2.zero;
+        Player.PlayerRb.gravityScale = 0;
+        Player.PlayerRb.velocity = Vector2.zero;
         #endregion
 
     }
     public override void Exit()
     {
-        Debug.Log("Exit Dash_0");
-        #region ï¿½Ë³ï¿½×´Ì¬ï¿½ï¿½ï¿½ï¿½
+        
+        #region ÍË³ö×´Ì¬ÖØÖÃ
         Player.PlayerRb.gravityScale = Player.orginGravityScale;
         bulletTimeCounter = 0.0f;
         Time.timeScale = 1.0f;
@@ -46,7 +51,8 @@ public class PlayerState_DashCircle_0 : PlayerState
         side = 0;
         bulletTimeScale = 0.1f;
         #endregion
-       // PlayerStateMachine.state = 2;
+        Debug.Log("Exit Dash_0");
+        // PlayerStateMachine.state = 2;
     }
     public override void LogicUpdate()
     {
@@ -61,10 +67,12 @@ public class PlayerState_DashCircle_0 : PlayerState
        DashCheck();
        DashEffect();
        DashAddForce();
-       DashTransform();
     }
     public override void PhysicUpdate()
     {
+        //Player.PlayerRb.gravityScale = 0;
+        Debug.Log("grabMount:" + Grab.grabMount);
+        Debug.Log("gravityScale:" + Player.PlayerRb.gravityScale);
         if (isBulletTimeActive && bulletTimeCounter > 0)
         {
             bulletTimeCounter -= Time.deltaTime;
@@ -75,9 +83,9 @@ public class PlayerState_DashCircle_0 : PlayerState
         }
     }
 
-    #region å†²åˆºæ•°æ®åŠå‡½æ•°
-    public static int side = 0;//å†²åˆºæ–¹å‘
-    public static int dashMount = 0;//å†²åˆºæ¬¡æ•°
+    #region ³å´ÌÊý¾Ý¼°º¯Êý
+    public static int side = 0;//³å´Ì·½Ïò
+    public static int dashMount = 0;//³å´Ì´ÎÊý
 
     public void DashCheck()
     {
@@ -86,35 +94,35 @@ public class PlayerState_DashCircle_0 : PlayerState
             //Debug.Log("DashCheck");
             if (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.W))
             {
-                side = 1;//å³
+                side = 1;//ÓÒ
             }
             else if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.S))
             {
-                side = 2;//å³ä¸‹
+                side = 2;//ÓÒÏÂ
             }
             else if (Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
             {
-                side = 3;//ä¸‹
+                side = 3;//ÏÂ
             }
             else if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.S))
             {
-                side = 4;//å·¦ä¸‹
+                side = 4;//×óÏÂ
             }
             else if (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.W))
             {
-                side = 5;//å·¦
+                side = 5;//×ó
             }
             else if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.W))
             {
-                side = 6;//å·¦ä¸Š
+                side = 6;//×óÉÏ
             }
             else if (Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
             {
-                side = 7;//ä¸Š
+                side = 7;//ÉÏ
             }
             else if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.W))
             {
-                side = 8;//å³ä¸Š
+                side = 8;//ÓÒÉÏ
             }
 
         }
@@ -123,7 +131,7 @@ public class PlayerState_DashCircle_0 : PlayerState
     {
         if (side == 0)
         {
-            Player.PlayerRb.gravityScale = Player.orginGravityScale;
+            //Player.PlayerRb.gravityScale = Player.orginGravityScale;
         }
         else if (side != 0)
         {
@@ -137,114 +145,70 @@ public class PlayerState_DashCircle_0 : PlayerState
         if (dashMount > 0)
         {
             
-            #region å†²åˆºæ–¹å‘é€‰æ‹©æ–½åŠ›
+            #region ³å´Ì·½ÏòÑ¡ÔñÊ©Á¦
             switch (side)
             {
-                case 1://å³
+                case 1://ÓÒ
                     Player.PlayerRb.AddForce(Vector2.right * dashForce, ForceMode2D.Impulse);
-                    Debug.Log("å³");
+                    Debug.Log("ÓÒ");
                     side = 0;
                     dashMount -= 1;
                     break;
 
-                case 2://å³ä¸‹
+                case 2://ÓÒÏÂ
                     Player.PlayerRb.AddForce(Vector2.right * dashForce + Vector2.down * dashForceH, ForceMode2D.Impulse);
-                    Debug.Log("å³ä¸‹");
+                    Debug.Log("ÓÒÏÂ");
                     side = 0;
                     dashMount -= 1;
                     break;
 
-                case 3://ä¸‹
+                case 3://ÏÂ
                     Player.PlayerRb.AddForce(Vector2.down * dashForceH, ForceMode2D.Impulse);
-                    Debug.Log("ä¸‹");
+                    Debug.Log("ÏÂ");
                     side = 0;
                     dashMount -= 1;
                     break;
 
-                case 4://å·¦ä¸‹
+                case 4://×óÏÂ
                     Player.PlayerRb.AddForce(Vector2.left * dashForce + Vector2.down * dashForceH, ForceMode2D.Impulse);
-                    Debug.Log("å·¦ä¸‹");
+                    Debug.Log("×óÏÂ");
                     side = 0;
                     dashMount -= 1;
                     break;
 
-                case 5://å·¦
+                case 5://×ó
                     Player.PlayerRb.AddForce(Vector2.left * dashForce, ForceMode2D.Impulse);
-                    Debug.Log("å·¦");
+                    Debug.Log("×ó");
                     side = 0;
                     dashMount -= 1;
                     break;
 
-                case 6://å·¦ä¸Š
+                case 6://×óÉÏ
                     Player.PlayerRb.AddForce(Vector2.left *dashForce + Vector2.up * dashForceH, ForceMode2D.Impulse);
-                    Debug.Log("å·¦ä¸Š");
+                    Debug.Log("×óÉÏ");
                     side = 0;
                     dashMount -= 1;
                     break;
 
-                case 7://ä¸Š
+                case 7://ÉÏ
                     Player.PlayerRb.AddForce(Vector2.up * dashForceH, ForceMode2D.Impulse);
-                    Debug.Log("ä¸Š");
+                    Debug.Log("ÉÏ");
                     side = 0;
                     dashMount -= 1;
                     break;
 
-                case 8://å³ä¸Š
+                case 8://ÓÒÉÏ
                     Player.PlayerRb.AddForce(Vector2.right * dashForce + Vector2.up * dashForceH, ForceMode2D.Impulse);
-                    Debug.Log("å³ä¸Š");
+                    Debug.Log("ÓÒÉÏ");
                     side = 0;
                     dashMount -= 1;
                     break;
             }
             #endregion
         }
-
     }
     #endregion
-    public float dashScale;
-    public float dashScaleH;
-    public void DashTransform()
-    {
-        if(PlayerCollisionCheck.PlayerTouchWall){
-            PlayerTf.localScale.x=-PlayerTf.localScale.x;
-            PlayerRb.velocity=new Vector2(-PlayerRb.velocity.x,-PlayerRb.velocity.y);
-            if(dashMount>0&&Input.GetMouseButton(2)){
-                TransformDashCheck();
-                DashEffect();
-                dashForce*=dashScale;
-                dashForceH*=dashScaleH;
-                DashAddForce();
-                dashForce/=dashScale;
-                dashForceH/=dashScaleH;
-            }
-        }
-    }
-    public void TransformDashCheck(){
-        if(PlayerRb.velocity.x>0&&PlayerRb.velocity.y==0){
-            side = 1;
-        }
-        else if(PlayerRb.velocity.x>0&&PlayerRb.velocity.y<0){
-            side = 2;
-        }      
-        else if(PlayerRb.velocity.x==0&&PlayerRb.velocity.y<0){
-            side = 3;
-        }
-        else if(PlayerRb.velocity.x<0&&PlayerRb.velocity.y<0){
-            side = 4;
-        }
-        else if(PlayerRb.velocity.x<0&&PlayerRb.velocity.y==0){
-            side = 5;
-        }
-        else if(PlayerRb.velocity.x<0&&PlayerRb.velocity.y>0){
-            side = 6;
-        }
-        else if(PlayerRb.velocity.x==0&&PlayerRb.velocity.y>0){
-            side = 7;
-        }
-        else if(PlayerRb.velocity.x>0&&PlayerRb.velocity.y>0){
-            side = 8;
-        }
-    }
+
     
 
   

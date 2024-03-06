@@ -6,9 +6,13 @@ using UnityEngine;
 public class CircleAutoGrabCheck : MonoBehaviour
 {
     #region 判定参数
-    public int segments = 50; // 扇形的线段数
-    public float radius = 1f; // 扇形的半径
+    [Tooltip("扇形的线段数（越多越接近一个真正的扇形）")]
+    public int segments = 50; 
+    [Tooltip(" 扇形的半径")]
+    public float radius = 1f;
+    [Tooltip("初始方向")]
     public float startAngle = 45f;
+    [Tooltip("末尾方向")]
     public float endAngle = -45f;
     #endregion
 
@@ -41,7 +45,7 @@ public class CircleAutoGrabCheck : MonoBehaviour
         polyCollider.points = points;
     }
     public static Vector3 CirclePosition;
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if ((collision.gameObject.CompareTag("DashCircle")&&!isAutoTouch))
         {
