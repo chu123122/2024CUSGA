@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: d2dcf2c5f9131be4fb4ba167053fb0a9
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - playerData: {fileID: 11400000, guid: bbe96fbb698068844834e3e2ca1d7953, type: 2}
+  - moveData: {fileID: 11400000, guid: 3e8f2a6caa06e4d4f9bb674aaac49a4d, type: 2}
+  - jumpData: {fileID: 11400000, guid: b8aad5267a7a73f498b833c4a90af0cb, type: 2}
+  - dashData: {fileID: 11400000, guid: 89faa0292a39a9142aa8aab00e085616, type: 2}
+  - grabData: {fileID: 11400000, guid: 9bd4464437c183b46bb98088455aaa20, type: 2}
+  - dash_0_Data: {fileID: 11400000, guid: a29289838d4f7b94bacbc5108ba0ddac, type: 2}
+  - dash_1_Data: {fileID: 11400000, guid: 73eb3aa6d76437b4785c11545691636d, type: 2}
+  - autoGrabData: {fileID: 11400000, guid: 6185186bbb8ce61429975ef2f674c236, type: 2}
+  - cloneCircleHit_Data: {fileID: 11400000, guid: 1fcb730f958cb3e45981277aaf40dc8f, type: 2}
+  executionOrder: -1100
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
